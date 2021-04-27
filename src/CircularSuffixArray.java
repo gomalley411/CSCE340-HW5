@@ -16,32 +16,77 @@ public class CircularSuffixArray {
 	 * Your job is to implement the circular suffix array API, which
 	 * provides the client to the index[] values.
 	 */
-	private int length;
-	private String s;
-	private int[] index;
+	private static final int RADIX = 256;
+	private String sInput;
+	private final int sLength; 	//length of sInput
+	private final int[] myRank;	// rank of sorted suffix array. Index is index of the said array. Int value is ranking of current d
+	private int[] lastRank, suffixArray;
+	// lastRank: rank of the last time we sorted d digits. Array index is the index of original suffix array
+	// suffixArray: index is order of sorted array, value is original order in array
+	private int d; // number of digits sorted
 	
 	// circular suffix array of s
-	public CircularSuffixArray(String s1) {
+	public CircularSuffixArray(String s) {
 		if (s == null) throw new IllegalArgumentException("s cannot be null");
-		s = s1;
-		length = s1.length();
-		index = new int[length];
+		this.sInput = s;
+		sLength = sInput.length();
+		myRank = new int[sLength];
+		lastRank = new int[sLength];
+		suffixArray = new int[sLength];
+		for (int i = 0; i < sLength; i++) {
+			suffixArray[i] = i;
+		}
 		
+		KIC(); // sort suffixArray using key indexed counting sort
+		// Manber-Myers algorithm goes here if needed - write later
+		
+		
+		print();
 	}
 	
 	// length of s
 	public int length() {
-		return length;
+		return sLength;
 	}
 	
 	// returns index of ith sorted suffix
 	public int index(int i) {
-		if (i < 0 || i > length-1) throw new IllegalArgumentException("index(): i is outside range");
-		return index[i];
+		if (i < 0 || i > sLength-1) throw new IllegalArgumentException("index(): i is outside range");
+		return suffixArray[i];
 	}
+	
+	// use key indexed sorting to sort suffixArray
+	private void KIC() {
+		int[] ct = new int[RADIX + 1];
+		
+		// count the frequencies
+		for (int i = 0; i < sLength; i++)
+			ct[sInput.charAt(i)+1]++;
+		
+		// compute the cumulates
+		for (int r = 0; r < RADIX; r++)
+			ct[r+1] += ct[r];
+		
+		// move then copy back
+		for (int i = 0; i < sLength; i++) {
+			// the rank is temporarily utilized as an auxiliary array to conserve memory
+			myRank[ct[sInput.charAt(i)]++] = suffixArray[i];
+			suffixArray[i] = myRank[i]; // copy back
+		}
+	}
+	
+	private void print() {
+		for (int i = 0; i < suffixArray.length; i++) {
+			System.out.print(suffixArray[i] + " ");
+		}
+		System.out.println();
+	}
+	
+	
 	
 	// unit testing -required
 	public static void main(String[] args) {
+		CircularSuffixArray csa = new CircularSuffixArray("Fuck this class!");
 		
 	}
 }
