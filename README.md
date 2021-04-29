@@ -49,11 +49,11 @@ See the Checklist for Bash commands to compress/expand.
 
                                       typical            worst
 ---------------------------------------------------------------------
-CircularSuffixArray constructor
-BurrowsWheeler transform()
-BurrowsWheeler inverseTransform()
-MoveToFront encode()
-MoveToFront decode()
+CircularSuffixArray constructor       n                  n
+BurrowsWheeler transform()            2n^2+R             ?
+BurrowsWheeler inverseTransform()     3n+2R              3n+2R
+MoveToFront encode()                  n+R                2R???
+MoveToFront decode()                  n+R                2R???
 Huffman compress()                    n + R log R        n + R log R
 Huffman expand()                      n                  n
 
@@ -64,7 +64,7 @@ Huffman expand()                      n                  n
 /* *****************************************************************************
  *  Known bugs / limitations.
  **************************************************************************** */
-MoveToFront is having an ArrayIndexOutOfBoundsException at line 10, but I can't figure out how to fix it...
+BurrowsWheeler is having an ArrayIndexOutOfBoundsException at line 64, but I can't figure out how to fix it...
 
 
 /* *****************************************************************************
@@ -73,12 +73,12 @@ MoveToFront is having an ArrayIndexOutOfBoundsException at line 10, but I can't 
  *  include any help from people (including
  *  classmates and friends) and attribute them by name.
  **************************************************************************** */
-
+na
 
 /* *****************************************************************************
  *  Describe any serious problems you encountered.                    
  **************************************************************************** */
-
+exception as described above, yet to be solved...
 
 
 /* *****************************************************************************
@@ -88,7 +88,7 @@ MoveToFront is having an ArrayIndexOutOfBoundsException at line 10, but I can't 
  *  for what to change or what to keep (assignments or otherwise) in future 
  *  semesters.
  **************************************************************************** */
-
+na
 
 /* *****************************************************************************
  *  Include the screenshots of your output.
