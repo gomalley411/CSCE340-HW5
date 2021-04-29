@@ -1,5 +1,5 @@
 /* *****************************************************************************
- *  Name:      
+ *  Name:      George O'Malley & Rachel McMullan
  *  NetID:    
  *
  *  Partner Name:     N/A
