@@ -20,17 +20,22 @@ public class CircularSuffixArray {
 	private String sInput;
 	private final int sLength; 	//length of sInput
 	private final int[] myRank;	// rank of sorted suffix array. Index is index of the said array. Int value is ranking of current d
+
 	private int[] lastRank, suffixArray;
+	
 	// lastRank: rank of the last time we sorted d digits. Array index is the index of original suffix array
 	// suffixArray: index is order of sorted array, value is original order in array
 	private int d; // number of digits sorted
 	
 	// circular suffix array of s
 	public CircularSuffixArray(String s) {
+		System.out.println("in CircularSuffixArray constructor");
 		if (s == null) throw new IllegalArgumentException("s cannot be null");
 		this.sInput = s;
 		sLength = sInput.length();
 		myRank = new int[sLength];
+		
+
 		lastRank = new int[sLength];
 		suffixArray = new int[sLength];
 		for (int i = 0; i < sLength; i++) {
@@ -38,8 +43,7 @@ public class CircularSuffixArray {
 		}
 		
 		KIC(); // sort suffixArray using key indexed counting sort
-		// Manber-Myers algorithm goes here if needed - write later
-		
+
 		
 		print();
 	}
@@ -53,7 +57,10 @@ public class CircularSuffixArray {
 	public int index(int i) {
 		if (i < 0 || i > sLength-1) throw new IllegalArgumentException("index(): i is outside range");
 		return suffixArray[i];
+
 	}
+	
+	
 	
 	// use key indexed sorting to sort suffixArray
 	private void KIC() {
@@ -86,7 +93,8 @@ public class CircularSuffixArray {
 	
 	// unit testing -required
 	public static void main(String[] args) {
-		CircularSuffixArray csa = new CircularSuffixArray("Fuck this class!");
+		CircularSuffixArray csa = new CircularSuffixArray("abc");
+		System.out.println(csa.index(2) + " " + csa.length() + " ");
 		
 	}
 }
