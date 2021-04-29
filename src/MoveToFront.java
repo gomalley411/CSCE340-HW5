@@ -1,33 +1,36 @@
+import java.util.LinkedList;
 
 public class MoveToFront {
 	private static final int R = 256; // extended ASCII character amount
 	
 	// apply move-to-front encoding, reading from StdIn and writing to StdOut
 	public static void encode () {
-		char[] mychars = getChArray();
-		while(!BinaryStdIn.isEmpty()) {
-			char ch = BinaryStdIn.readChar(), tin, count, tout;
-			for (count = 0, tout = mychars[0]; ch != mychars[count]; count++) {
-				tin = mychars[tout];
-				mychars[count] = tout;
-				tout = tin;
-			}
-			mychars[count] = tout;
-			BinaryStdOut.write(count);
-			mychars[0] = ch;
+		LinkedList<Character> ASCII = getASCII();
+		while (!BinaryStdIn.isEmpty()) {
+			char c = BinaryStdIn.readChar();
+			int pos = ASCII.indexOf(c);
+			if (pos == -1) throw new IllegalArgumentException();
+			BinaryStdOut.write(pos, 8);
+			
+			// move c from current pos. to front
+			ASCII.remove(pos);
+			ASCII.addFirst(c);
 		}
 		BinaryStdOut.close();
 	}
 	
 	// apply move-to-front decoding, reading from StdIn and writing to StdOut
 	public static void decode() {
-		char[] mychars = getChArray();
+		LinkedList<Character> ASCII = getASCII();
 		while (!BinaryStdIn.isEmpty()) {
-			char c = BinaryStdIn.readChar();
-			BinaryStdOut.write(mychars[c], 8);
-			char index = mychars[c];
-			while (c > 0) mychars[c] = mychars[--c];
-			mychars[0] = index;
+			int pos = (int) BinaryStdIn.readChar(); // read character
+			if (pos < 0 || pos >= 256) throw new IllegalArgumentException();
+			char c = ASCII.get(pos);
+			BinaryStdOut.write(c);
+			
+			// move c from current pos. to front
+			ASCII.remove(pos);
+			ASCII.addFirst(c);
 		}
 		BinaryStdOut.close();
 	}
@@ -42,11 +45,9 @@ public class MoveToFront {
 		else throw new IllegalArgumentException("Unknown argument in MoveToFront main: " + firstArg + "\n");
 	}
 	
-	private static char[] getChArray() {
-		char[] chars = new char[R];
-		for (char i = 0; i < R; i++) {
-			chars[i] = i;
-		}
-		return chars;
+	private static LinkedList<Character> getASCII() {
+		LinkedList<Character> ASCII = new LinkedList<>();
+		for (char c = 0; c < 256; c++) ASCII.add(c);
+		return ASCII;
 	}
 }
