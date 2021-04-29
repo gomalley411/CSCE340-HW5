@@ -5,7 +5,7 @@ public class MoveToFront {
 	// apply move-to-front encoding, reading from StdIn and writing to StdOut
 	public static void encode () {
 		char[] mychars = getChArray();
-		do {
+		while(!BinaryStdIn.isEmpty()) {
 			char ch = BinaryStdIn.readChar(), tin, count, tout;
 			for (count = 0, tout = mychars[0]; ch != mychars[count]; count++) {
 				tin = mychars[tout];
@@ -15,20 +15,20 @@ public class MoveToFront {
 			mychars[count] = tout;
 			BinaryStdOut.write(count);
 			mychars[0] = ch;
-		}while(!BinaryStdIn.isEmpty());
+		}
 		BinaryStdOut.close();
 	}
 	
 	// apply move-to-front decoding, reading from StdIn and writing to StdOut
 	public static void decode() {
 		char[] mychars = getChArray();
-		do {
+		while (!BinaryStdIn.isEmpty()) {
 			char c = BinaryStdIn.readChar();
 			BinaryStdOut.write(mychars[c], 8);
 			char index = mychars[c];
 			while (c > 0) mychars[c] = mychars[--c];
 			mychars[0] = index;
-		}while(!BinaryStdIn.isEmpty());
+		}
 		BinaryStdOut.close();
 	}
 	
