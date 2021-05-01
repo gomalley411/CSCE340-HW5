@@ -28,12 +28,12 @@ I used key-indexed counting because it seemed like the most efficient way to sor
 
 Algorithm       Compression time    Expansion time           Compression ratio
 ------------------------------------------------------------------------------
-My program
+My program                                            0.269 (5505424 / 20457401) 
 Huffman alone                                         0.560 (667651 / 1191463)
 gzip                            
 
 See the Checklist for Bash commands to compress/expand.
-
+Had issues downloading Gzip :(
 
 
 /* *****************************************************************************
@@ -64,7 +64,7 @@ Huffman expand()                      n                  n
 /* *****************************************************************************
  *  Known bugs / limitations.
  **************************************************************************** */
-BurrowsWheeler is having an ArrayIndexOutOfBoundsException at line 64, but I can't figure out how to fix it...
+Couldn't download Gzip... -George
 
 
 /* *****************************************************************************
@@ -78,7 +78,7 @@ na
 /* *****************************************************************************
  *  Describe any serious problems you encountered.                    
  **************************************************************************** */
-exception as described above, yet to be solved...
+We had an ArrayIndexOutOfBoundsException for BurrowsWheeler earlier, but we fixed it.
 
 
 /* *****************************************************************************
